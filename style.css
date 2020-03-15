@@ -2,20 +2,96 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: white;
 }
 
-header{
-    background-color: aquamarine;
-    height: 70px;
+body {
+    background-color: #1a191c;
+}
+
+header {
+    background-color: #30283b;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
 }
 
 main {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     flex-wrap: wrap;
-}
-
-.pelicula {
-    text-align: center;
+    padding: 30px;
     
 }
+
+
+input {
+    border-radius: 5px;
+    border: black solid 1px;
+}
+
+.info { 
+    background-color: #30283b;
+    height: 5em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: rgba(255, 255, 255, 0.61);
+    margin-bottom: 30px;
+}
+
+.info p {
+   font-size: small;
+   margin: 0px;
+}
+
+h3 {
+    font-size: small;
+}
+.pelicula {
+    max-width: 220px;
+    margin: 0px 30px;
+    cursor: pointer;
+    
+}
+
+.pelicula img {
+    width: 220px;
+}
+
+
+.noDis {
+    width: 187px;
+}
+
+.noCoin {
+    color: white;
+    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+ 
+}
+
+.noCoin img {
+    width: 300px;
+}
+
+.peli {
+    display: flex;
+    color: white;
+    align-items: center;
+    background-color: #30283b;
+    margin-top: 3em;
+}
+.infos {
+    display: flex;
+    flex-direction: column;
+    padding: 2em;
+}
+
+
