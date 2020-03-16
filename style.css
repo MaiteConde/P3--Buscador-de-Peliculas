@@ -3,20 +3,36 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-    color: white;
+    color: black;
 }
 
 body {
-    background-color: #1a191c;
+    background-color: #000000;
+    background-image: url(./img/ws_Clean_Blurred_Purple_Background_1920x1080.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.titlePag {
+    width: 100%;
+    border-bottom: rgba(0, 0, 0, 0.582) 1px solid;
+    margin: 30px 0px;
+    text-shadow: 3px 4px 2px rgba(0, 0, 0, 0.233);
+}
+
+.similarMovies {
+    display: flex;
 }
 
 header {
-    background-color: #30283b;
+    /* background-color: rgba(78, 75, 75, */
     height: 60px;
     display: flex;
     justify-content: space-between;
     padding: 20px;
     align-items: center;
+    
 }
 
 main {
@@ -24,7 +40,6 @@ main {
     justify-content: center;
     flex-wrap: wrap;
     padding: 30px;
-    
 }
 
 
@@ -33,33 +48,41 @@ input {
     border: black solid 1px;
 }
 
-.info { 
-    background-color: #30283b;
+.info {
+    background-color: rgba(78, 75, 75, 0.212);
     height: 5em;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    color: rgba(255, 255, 255, 0.61);
-    margin-bottom: 30px;
+    color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 24px -3px rgba(0, 0, 0, 0.75);
+    padding: 0.5em;
 }
 
 .info p {
-   font-size: small;
-   margin: 0px;
+    font-size: small;
+    margin: 0px;
 }
 
 h3 {
-    font-size: small;
+    font-size: 1.1em;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 .pelicula {
     max-width: 220px;
     margin: 0px 30px;
+    padding: 30px 0px;
     cursor: pointer;
-    
+
+
 }
 
 .pelicula img {
     width: 220px;
+    height: 330px;
+    box-shadow: 0px 0px 24px -3px rgba(12, 12, 12, 0.692);
 }
 
 
@@ -74,24 +97,50 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
- 
+
 }
 
 .noCoin img {
     width: 300px;
+
 }
 
 .peli {
     display: flex;
+    flex-direction: column;
     color: white;
     align-items: center;
-    background-color: #30283b;
-    margin-top: 3em;
+    background-color: rgba(78, 75, 75, 0.212);
+    ;
+    max-width: 100%;
+    padding-top: 20px;
 }
+
+.peli img {
+    box-shadow: 0px 0px 24px -3px rgba(12, 12, 12, 0.692);
+}
+
+.similarMovies {
+    max-width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+    cursor: pointer;
+
+}
+
 .infos {
     display: flex;
     flex-direction: column;
     padding: 2em;
+
 }
 
+.similarinfos {
+    max-width: 187px;
+}
 
+.peliSimilar {
+    padding: 20px;
+}

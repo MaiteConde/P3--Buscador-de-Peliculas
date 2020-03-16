@@ -13,8 +13,10 @@
 <body>
 <header>
   <div class="btn-group">
-    <button type="button" class="btn btn-outline-light inicio" onclick="goIinicio()">Inicio</button>
-    <button type="button" class="btn btn-outline-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <button type="button" class="btn btn-outline-dark inicio" onclick="goInicio()">Now playing</button>
+    <button type="button" class="btn btn-outline-dark inicio" onclick="goPopular()">Most popular</button>
+    <button type="button" class="btn btn-outline-dark inicio" onclick="goUpcom()">Upcoming</button>
+    <button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
       Géneros
       
     </button>
@@ -25,11 +27,12 @@
 
 
   </div>
-         <input type="search" class="buscarInput">
+         <input type="search" class="buscarInput" placeholder="Buscar">
      
     </header>
    
     <main class="peliculas">
+  
        
     </main>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>

@@ -1,14 +1,16 @@
-axios.get('https://api.themoviedb.org/3/movie/popular?api_key=cea68b520beecac6718820e4ac576c3a&language=en-EN&page=1')
+axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=cea68b520beecac6718820e4ac576c3a&language=en-US&page=1')
     .then(res => {
         const peliculas = res.data.results;
-        peliculasContainer.innerHTML = '';
+        peliculasContainer.innerHTML = '<div class="titlePag"><h1>Now playing</h1></div>';
         const baseImgUrl = 'https://image.tmdb.org/t/p/w185';
+
         peliculas.forEach(pelicula => {
             const imagen = pelicula.poster_path ? `
         <img src="${baseImgUrl}${pelicula.poster_path}" alt="">` : '<img src="./img/image-not-available.jpg" class ="noDis"'
-            peliculasContainer.innerHTML += `
-
+            peliculasContainer.innerHTML += ` 
+            
         <div onclick = "renderPeli(${pelicula.id})"  class="pelicula">
+        
         ${imagen}
         <div class = "info">
             <h3 class="title">${pelicula.title} 
@@ -16,6 +18,7 @@ axios.get('https://api.themoviedb.org/3/movie/popular?api_key=cea68b520beecac671
        <p> ${pelicula.release_date} </p>
       </div>
     </div>`
+
         })
     })
 
@@ -55,13 +58,9 @@ document.querySelector('.buscarInput')
                         <h2>No se han encontrado películas con esta búsqueda</h2>
                         </div>`
                     }
-
                 })
-        }
+       }
     })
-
-
-
 axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=cea68b520beecac6718820e4ac576c3a&language=en-EN')
     .then(res => {
         const generos = res.data.genres;
@@ -71,8 +70,6 @@ axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=cea68b520beecac
 
         })
     })
-
-    
 
 const pelisGen = (event, genreId) => {
     axios.get(`https://api.themoviedb.org/3/discover/movie?api_key=cea68b520beecac6718820e4ac576c3a&with_genres=${genreId}`)
@@ -100,42 +97,59 @@ const pelisGen = (event, genreId) => {
             }
         })
         .catch(error => console.error(error))
-    }
+}
 
-    const renderPeli = id => {
-       
-        axios.get(` https://api.themoviedb.org/3/movie/${id}?api_key=cea68b520beecac6718820e4ac576c3a&append_to_response=credits`)
-    .then(res => {
-        const pelicula = res.data;
-        const baseImgUrl = 'https://image.tmdb.org/t/p/w185';
-            const imagen = pelicula.poster_path ? `
+const renderPeli = async id => {
+    const res = await axios.get(` https://api.themoviedb.org/3/movie/${id}?api_key=cea68b520beecac6718820e4ac576c3a&append_to_response=credits`)
+    const pelicula = res.data;
+    const baseImgUrl = 'https://image.tmdb.org/t/p/w185';
+    const homepage = pelicula.homepage ? `<p>Homepage: <a href="${pelicula.homepage}">${pelicula.homepage} </a></p>
+            ` : `Homepage: not available`;
+    const imagen = pelicula.poster_path ? `
         <img src="${baseImgUrl}${pelicula.poster_path}" alt="">` : '<img src="./img/image-not-available.jpg" class ="noDis"'
-       
-            peliculasContainer.innerHTML =   `
+    const {data} = await axios.get(`https://api.themoviedb.org/3/movie/${pelicula.id}/similar?api_key=cea68b520beecac6718820e4ac576c3a&page=1`)
+    let similaresDivs='';
+    const similares = data.results
+    similares.forEach(similar =>{
+        const similarImg = similar.poster_path ? `
+        <img src="${baseImgUrl}${similar.poster_path}" alt="">` : '<img src="./img/image-not-available.jpg" class ="noDis"'
+        similaresDivs+= `<div  class="peliSimilar"  onclick = "renderPeli(${similar.id})">
+        ${similarImg}
+        <div class ="similarinfos">
+            <h3 class="title">${similar.title}
+        </h3>
+        </div>
+       </div>`
+    })
+    peliculasContainer.innerHTML = `
         <div  class="peli">
         ${imagen}
         <div class ="infos">
             <h3 class="title">${pelicula.title}
         </h3>
        <p>${pelicula.overview} </p>
-     
-      
+       <p>Main genre: ${pelicula.genres[0].name} </p>
+       <p>Rating: ${pelicula.popularity} </p>
+       ${homepage}
+
        </div>
-    </div>` 
-  
- })
-     }
- 
-    const goIinicio = () => {
-        axios.get('https://api.themoviedb.org/3/movie/popular?api_key=cea68b520beecac6718820e4ac576c3a&language=en-EN&page=1')
-    .then(res => {
-        const peliculas = res.data.results;
-        peliculasContainer.innerHTML = '';
-        const baseImgUrl = 'https://image.tmdb.org/t/p/w185';
-        peliculas.forEach(pelicula => {
-            const imagen = pelicula.poster_path ? `
+       <p> Similar movies: </p>
+       <div class="similarMovies"> ${similaresDivs}</div>
+    </div>`
+
+
+}
+
+const goPopular = () => {
+    axios.get('https://api.themoviedb.org/3/movie/popular?api_key=cea68b520beecac6718820e4ac576c3a&language=en-EN&page=1')
+        .then(res => {
+            const peliculas = res.data.results;
+            peliculasContainer.innerHTML = '<div class="titlePag"><h1>Most popular</h1></div>';
+            const baseImgUrl = 'https://image.tmdb.org/t/p/w185';
+            peliculas.forEach(pelicula => {
+                const imagen = pelicula.poster_path ? `
         <img src="${baseImgUrl}${pelicula.poster_path}" alt="">` : '<img src="./img/image-not-available.jpg" class ="noDis"'
-            peliculasContainer.innerHTML += `
+                peliculasContainer.innerHTML += `
 
         <div onclick = "renderPeli(${pelicula.id})"  class="pelicula">
         ${imagen}
@@ -145,8 +159,52 @@ const pelisGen = (event, genreId) => {
        <p> ${pelicula.release_date} </p>
       </div>
     </div>`
+            })
         })
-    })
-    }
+}
 
-   
+const goInicio = () => {
+    axios.get('https://api.themoviedb.org/3/movie/now_playing?api_key=cea68b520beecac6718820e4ac576c3a&language=en-US&page=1')
+        .then(res => {
+            const peliculas = res.data.results;
+            peliculasContainer.innerHTML = '<div class="titlePag"><h1>Now playing</h1></div>';
+            const baseImgUrl = 'https://image.tmdb.org/t/p/w185';
+            peliculas.forEach(pelicula => {
+                const imagen = pelicula.poster_path ? `
+        <img src="${baseImgUrl}${pelicula.poster_path}" alt="">` : '<img src="./img/image-not-available.jpg" class ="noDis"'
+                peliculasContainer.innerHTML += `
+
+        <div onclick = "renderPeli(${pelicula.id})"  class="pelicula">
+        ${imagen}
+        <div class = "info">
+            <h3 class="title">${pelicula.title} 
+        </h3>
+       <p> ${pelicula.release_date} </p>
+      </div>
+    </div>`
+            })
+        })
+}
+
+const goUpcom = () => {
+    axios.get('https://api.themoviedb.org/3/movie/upcoming?api_key=cea68b520beecac6718820e4ac576c3a&language=en-US&page=1')
+        .then(res => {
+            const peliculas = res.data.results;
+            peliculasContainer.innerHTML = '<div class="titlePag"><h1>Upcoming</h1></div>';
+            const baseImgUrl = 'https://image.tmdb.org/t/p/w185';
+            peliculas.forEach(pelicula => {
+                const imagen = pelicula.poster_path ? `
+        <img src="${baseImgUrl}${pelicula.poster_path}" alt="">` : '<img src="./img/image-not-available.jpg" class ="noDis"'
+                peliculasContainer.innerHTML += `
+
+        <div onclick = "renderPeli(${pelicula.id})"  class="pelicula">
+        ${imagen}
+        <div class = "info">
+            <h3 class="title">${pelicula.title} 
+        </h3>
+       <p> ${pelicula.release_date} </p>
+      </div>
+    </div>`
+            })
+        })
+}
